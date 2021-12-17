@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  loadtest:
+    build: .
+    container_name: loadtest
+    command: /bin/bash -c "sbt \"gatling-it:testOnly garlaxy.ContractorSimulation\""
+    env_file:
+      - .env
+    volumes:
+      - ./simulation_logs/:/code/logs/
+      - ./simulation_data/:/code/src/test/resources/csv/
+      - ./simulation_output:/code/target/gatling-it
+      - ./src:/code/src
+      - ./build.sbt:/code/build.sbt
+
